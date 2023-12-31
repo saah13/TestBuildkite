@@ -1,10 +1,7 @@
 steps:
-  - label: ":hammer: Tests"
-    command: echo $USER $PASSWORD
-    plugins:
-      docker#v3.5.0:
-        user: root
-        image: ubuntu
-        environment:
-          - "USER"
-          - "PASSWORD"
+- label: ":hammer: Tests"
+command: echo $USER $PASSWORD
+plugins:
+docker#v3.5.0:
+user: root
+image: ubuntu
