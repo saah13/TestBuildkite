@@ -1,6 +1,6 @@
 steps:
 - label: ":hammer: Tests"
-  command: echo $USER $PASSWORD
+  command: echo Test Test Test $USER $PASSWORD
 plugins:
 docker#v3.5.0:
 user: root
