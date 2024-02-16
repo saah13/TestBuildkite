@@ -1,0 +1,3 @@
+#!/bin/bash
+set -euo pipefail
+echo "IFT Threshold is: $BUILDKITE_PLUGINS_TEST_PLUGIN_IFT_THRESHOLD"
