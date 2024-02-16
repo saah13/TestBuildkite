@@ -1,4 +1,0 @@
-#!/bin/bash
-set -euo pipefail
-# prints all environment variables
-env
