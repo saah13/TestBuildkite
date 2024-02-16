@@ -1,0 +1,2 @@
+#!/bin/bash
+echo "IFT Threshold is: $BUILDKITE_PLUGINS_TEST_PLUGIN_IFT_THRESHOLD"
