@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Create a log file
+log_file="${BUILDKITE_BUILD_PATH}/after-hook-log.txt"
+
+# Function to write numbers to the log file
+write_numbers() {
+  for i in {1..60}; do
+    echo $i >> "$log_file"
+    sleep 1
+  done
+}
+
+# Run the function in the background
+write_numbers &
