@@ -3,13 +3,18 @@
 # Create a log file
 log_file="${BUILDKITE_BUILD_PATH}/after-hook-log.txt"
 
+# Debug information
+echo "Starting post-command hook" >> "$log_file"
+
 # Function to write numbers to the log file
 write_numbers() {
-  for i in {1..60}; do
+  for i in {1..30}; do
     echo $i >> "$log_file"
     sleep 1
   done
 }
 
-# Run the function in the background
-write_numbers &
+# Run the function and wait for it to complete
+write_numbers
+
+echo "Completed after-command hook" >> "$log_file"
