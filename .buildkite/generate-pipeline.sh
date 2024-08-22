@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Determine the value of MY_BOOLEAN_VAR
-if [ "$MY_BOOLEAN_VAR" == "true" ]; then
+if [ "$MY_BOOLEAN_VAR" = "true" ]; then
   cat <<EOF
 steps:
   - label: "Dynamic Sleep Test"
@@ -20,4 +20,3 @@ steps:
       manual: false
 EOF
 fi
-EOF
