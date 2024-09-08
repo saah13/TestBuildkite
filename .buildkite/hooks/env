@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export MY_NAME="Test Name"
+export MY_PASSWORD="Test Password"
