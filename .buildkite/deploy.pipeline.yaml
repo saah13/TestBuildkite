@@ -6,6 +6,3 @@ steps:
   - label: ":playwright: Trigger Playwright Tests"
     trigger: "qa-playwright-tests-enterprise-portal-$${SOMEVAR1}"
     soft_fail: true
-    build:
-      message: "Triggered Playwright tests for ${BUILDKITE_BRANCH} deployment"
-      branch: "master"
