@@ -1,0 +1,8 @@
+steps:
+  # Trigger Playwright Tests Dynamically
+  - label: ":playwright: Trigger Playwright Tests"
+    trigger: "qa-playwright-tests-enterprise-portal-${BUILDKITE_META_DEPLOY_ENVIRONMENT}"
+    soft_fail: true
+    build:
+      message: "Triggered Playwright tests for ${BUILDKITE_BRANCH} deployment"
+      branch: "master"
