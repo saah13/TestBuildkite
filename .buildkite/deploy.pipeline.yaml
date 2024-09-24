@@ -1,6 +1,7 @@
 steps:
   # Trigger Playwright Tests Dynamically
   - command: |
+      export SOMEVAR1=$(buildkite-agent meta-data get deploy-environment)
       echo $${SOMEVAR1}
   
   - label: ":playwright: Trigger Playwright Tests"
