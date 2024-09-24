@@ -1,5 +1,8 @@
 steps:
   # Trigger Playwright Tests Dynamically
+  - command: |
+      echo $${SOMEVAR1}
+  
   - label: ":playwright: Trigger Playwright Tests"
     trigger: "qa-playwright-tests-enterprise-portal-$${SOMEVAR1}"
     soft_fail: true
