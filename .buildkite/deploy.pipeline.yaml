@@ -7,5 +7,5 @@ steps:
   - wait      
   
   - label: ":playwright: Trigger Playwright Tests"
-    trigger: "qa-playwright-tests-enterprise-portal-$${SOMEVAR1}"
+    trigger: "qa-playwright-tests-enterprise-portal-$(buildkite-agent meta-data get deploy-environment)"
     soft_fail: true
