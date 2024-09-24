@@ -3,6 +3,8 @@ steps:
   - command: |
       export SOMEVAR1=$(buildkite-agent meta-data get deploy-environment)
       echo $${SOMEVAR1}
+      
+  -wait      
   
   - label: ":playwright: Trigger Playwright Tests"
     trigger: "qa-playwright-tests-enterprise-portal-$${SOMEVAR1}"
