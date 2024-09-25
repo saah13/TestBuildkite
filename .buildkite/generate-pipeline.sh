@@ -1,8 +1,5 @@
 #!/bin/bash
 
-ENVIRONMENT=$(buildkite-agent meta-data get deploy-environment)
-echo "$ENVIRONMENT"
-
 if [[ "$ENVIRONMENT" == "sandbox" ]]; then
   buildkite-agent pipeline upload <<EOF
   steps:
