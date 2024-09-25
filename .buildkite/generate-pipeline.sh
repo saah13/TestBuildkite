@@ -1,17 +1,23 @@
 #!/bin/bash
 
-if [ "$$ENVIRONMENT" == "sandbox" ]; then
+# Retrieve the deploy environment metadata
+ENVIRONMENT=$(buildkite-agent meta-data get deploy-environment)
+echo "Selected Environment: $ENVIRONMENT"
+
+# Check which environment is selected and generate the corresponding pipeline steps
+if [ "$ENVIRONMENT" == "sandbox" ]; then
   cat <<EOF
 steps:
-  - label: "Dynamic Sleep Test"
-    command: |
-      trigger: "qa-playwright-tests-enterprise-portal-sandbox"
+  - trigger: "qa-playwright-tests-enterprise-portal-sandbox"
+    async: true
+EOF
+elif [ "$ENVIRONMENT" == "int" ]; then
+  cat <<EOF
+steps:
+  - trigger: "qa-playwright-tests-enterprise-portal-int"
+    async: true
 EOF
 else
-  cat <<EOF
-steps:
-  - label: "Dynamic Sleep Test (No Retry)"
-    command: |
-      trigger: "qa-playwright-tests-enterprise-portal-int"
-EOF
+  echo "Unknown environment: $ENVIRONMENT"
+  exit 1
 fi
