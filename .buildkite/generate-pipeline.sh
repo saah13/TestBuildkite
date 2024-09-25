@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Determine the value of MY_BOOLEAN_VAR
-if [ "$ENVIRONMENT" = "sandbox" ]; then
+if [ "$ENVIRONMENT" == "sandbox" ]; then
   cat <<EOF
 steps:
   - label: "Dynamic Sleep Test"
