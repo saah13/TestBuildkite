@@ -1,22 +1,18 @@
 #!/bin/bash
 
 # Determine the value of MY_BOOLEAN_VAR
-if [ "$MY_BOOLEAN_VAR" = "true" ]; then
+if [ "$ENVIRONMENT" = "sandbox" ]; then
   cat <<EOF
 steps:
   - label: "Dynamic Sleep Test"
     command: |
-      sleep 5
-    retry:
-      manual: true
+      trigger: "qa-playwright-tests-enterprise-portal-sandbox"
 EOF
 else
   cat <<EOF
 steps:
   - label: "Dynamic Sleep Test (No Retry)"
     command: |
-      sleep 5
-    retry:
-      manual: false
+      trigger: "qa-playwright-tests-enterprise-portal-int"
 EOF
 fi
