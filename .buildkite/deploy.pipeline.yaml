@@ -1,6 +1,21 @@
-- label: ":playwright: Trigger Playwright Tests"
-  trigger: "qa-playwright-tests-enterprise-portal-${DEPLOY_ENVIRONMENT}"
-  soft_fail: true
-  build:
-    message: "Triggered Playwright tests for ${BUILDKITE_BRANCH} deployment"
-    branch: "master"
+steps:
+  - block: "Release"
+    key: "manual_approval"
+    prompt: "Fill out the details for release"
+    fields:
+      - text: "Release Name"
+        key: "release_name"
+      - select: "Approval required?"
+        key: "approval_required"
+        default: "Yes"
+        options:
+          - label: "Yes"
+            value: "yes"
+          - label: "No"
+            value: "no"
+
+  - label: "Step 3"
+    key: "step_3"
+    command:
+      - "echo 'Starting Step 3...'"
+      - "sleep 30"
