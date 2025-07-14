@@ -1,5 +1,0 @@
-set -eu
-echo '--- :house_with_garden: Setting up the environment'
-
-export MY_NAME="Test Name"
-export MY_PASSWORD="Test Password"
