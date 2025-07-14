@@ -1,13 +1,26 @@
-$Env:BUILD_START = [int](Get-Date -UFormat %s)
-$Env:STEP_START = [int](Get-Date -UFormat %s)
-$Env:STEP_SPAN_ID = "windows-step"
+# Config
+$buildId = $Env:BUILDKITE_BUILD_ID
+$buildStart = [int](Get-Date -UFormat %s)
+$projectDir = "$PSScriptRoot\..\.."  # Assuming .buildkite/ is at repo root
 
-# Run the command traced by buildevents using PowerShell
-C:\buildevents\buildevents.exe cmd --shell powershell.exe $Env:BUILDKITE_BUILD_ID $Env:STEP_SPAN_ID hello -- -Command "Write-Host 'Hello from Buildkite on Windows!'"
+# Trace npm install
+$span1 = "install"
+$start1 = [int](Get-Date -UFormat %s)
+C:\buildevents\buildevents.exe cmd --shell powershell.exe $buildId $span1 "npm install" -- -Command "cd $projectDir; npm install"
+C:\buildevents\buildevents.exe step $buildId $span1 $start1 install
 
-# Close the step
-C:\buildevents\buildevents.exe step $Env:BUILDKITE_BUILD_ID $Env:STEP_SPAN_ID $Env:STEP_START windows-step
+# Trace npm build
+$span2 = "build"
+$start2 = [int](Get-Date -UFormat %s)
+C:\buildevents\buildevents.exe cmd --shell powershell.exe $buildId $span2 "npm run build" -- -Command "cd $projectDir; npm run build"
+C:\buildevents\buildevents.exe step $buildId $span2 $start2 build
 
-# Complete build and print Honeycomb trace link
-$traceUrl = C:\buildevents\buildevents.exe build $Env:BUILDKITE_BUILD_ID $Env:BUILD_START success
-Write-Host "✅ Honeycomb trace: $traceUrl"
+# Trace npm test
+$span3 = "test"
+$start3 = [int](Get-Date -UFormat %s)
+C:\buildevents\buildevents.exe cmd --shell powershell.exe $buildId $span3 "npm test" -- -Command "cd $projectDir; npm test"
+C:\buildevents\buildevents.exe step $buildId $span3 $start3 test
+
+# Complete build
+$traceUrl = C:\buildevents\buildevents.exe build $buildId $buildStart success
+Write-Host "✅ Trace uploaded: $traceUrl"
