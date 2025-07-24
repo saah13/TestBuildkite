@@ -1,25 +1,11 @@
-# trace-install.ps1
-$buildId = $Env:BUILDKITE_BUILD_ID
-$traceparent = $Env:TRACEPARENT
-
-if ($traceparent) {
-    $parts = $traceparent -split '-'
-    $traceId = $parts[1]
-    $parentSpanId = $parts[2]
-} else {
-    $traceId = "00000000000000000000000000000000"
-    $parentSpanId = "0000000000000000"
-}
-
+$buildId = $env:BUILDKITE_BUILD_ID
 $spanId = "npm-install"
 $start = [int](Get-Date -UFormat %s)
 
-# Run the command
-C:\buildevents\buildevents.exe cmd `
-  $buildId `
-  $spanId `
-  "npm install" -- `
-  powershell.exe -Command "cd C:\buildkite-agent\builds\Agent1\larchi\starter; npm install"
+Write-Host "📦 Running npm install with buildevents..."
 
-# Finalize span
-C:\buildevents\buildevents.exe step $buildId $spanId $start $spanId
+& "C:\buildevents\buildevents.exe" cmd --shell powershell.exe $buildId $spanId $spanId -- -Command "cd C:\buildkite-agent\builds\Agent1\larchi\starter; npm install"
+
+Write-Host "✅ Finished install, sending step event..."
+
+& "C:\buildevents\buildevents.exe" step $buildId $spanId $start $spanId
