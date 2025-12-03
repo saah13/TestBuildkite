@@ -2,8 +2,6 @@
 
 [![Add to Buildkite](https://buildkite.com/button.svg)](https://buildkite.com/new)
 
-This repository is an example [Buildkite](https://buildkite.com/) pipeline to help new users understand how pipelines work.
-
 The pipeline is platform agnostic, which means it can run on any infrastructure. Its behavior is defined in [.buildkite/pipeline.yml](.buildkite/pipeline.yml), including steps to build, test, and deploy. These steps describe launching a shiny new rocket to the moon. 🚀🌕
 
 ## Create a pipeline
