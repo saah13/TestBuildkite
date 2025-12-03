@@ -12,6 +12,6 @@ You'll need a Buildkite account and a running agent to use the pipeline. If you 
 
 With Buildkite setup, you can quickly create a new pipeline by selecting **Add to Buildkite**. This prefills the pipeline details using [template.yml](.buildkite/template.yml) and includes a command to upload the pipeline definition in [pipeline.yml](.buildkite/pipeline.yml).
 
-## License
+## Licens
 
 See [LICENSE](LICENSE) (MIT)
