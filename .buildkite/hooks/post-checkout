@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "--- post-checkout: using GitHub PR merge ref (if applicable)"
+
+# Only run for PR builds
+if [[ "${BUILDKITE_PULL_REQUEST:-false}" == "false" ]]; then
+  echo "Not a PR build, skipping merge-ref checkout."
+  exit 0
+fi
+
+# Only for PRs targeting main or master
+if [[ ! "${BUILDKITE_PULL_REQUEST_BASE_BRANCH:-}" =~ ^(main|master)$ ]]; then
+  echo "PR base branch is '${BUILDKITE_PULL_REQUEST_BASE_BRANCH:-}', not main/master. Skipping."
+  exit 0
+fi
+
+echo "PR #${BUILDKITE_PULL_REQUEST} targeting ${BUILDKITE_PULL_REQUEST_BASE_BRANCH} – checking out GitHub merge ref."
+
+# Fetch the synthetic merge commit GitHub creates for the PR
+# This represents: latest base (main/master) merged into PR branch
+if ! git fetch origin "refs/pull/${BUILDKITE_PULL_REQUEST}/merge" --update-head-ok; then
+  echo "!! Failed to fetch refs/pull/${BUILDKITE_PULL_REQUEST}/merge from origin."
+  echo "   This usually means GitHub couldn't create the merge ref (e.g. merge conflict)."
+  exit 1
+fi
+
+# Check out the merge commit
+git checkout -qf FETCH_HEAD
+
+echo "Now on merge ref:"
+git log -1 --oneline
